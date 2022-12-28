@@ -1,4 +1,8 @@
+# PRIVATE FILES #
 *.xlsx
 
+# OS GENERATED FILES #
 .DS_Store
+
+# RUNTIME GNERATED FILES #
 .ipynb_checkpoints
