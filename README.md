@@ -1,6 +1,6 @@
 # Employment Optimisation Problem
 
-> *This is a project for the course of Operations Research (1218183) at Amirkabir University of Technology.*
+> *This is a project for the course Linear Optimization (1218183) at Amirkabir University of Technology.*
 
 ## Future Work and Improvements
 I plan to improve the project in the following ways:
