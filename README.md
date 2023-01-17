@@ -83,9 +83,9 @@ To model the problem, the following variable structure is used:
 
 ### Objective Function
 The objective function is defined as follows:
-$$
+```math
 \min z = \sum_{d\in D} \sum_{i\in Emp} (x_{i,d} \cdot w_i + x \prime_{i,d} \cdot w\prime_i)+ \sum_{d \in D} \sum_{g \in Job\space Groups} (y_{g,d}\cdot w_g + y\prime_{g,d}\cdot w\prime_g)\\
-$$
+```
 
 > _The reason to have each individual current employee as a desicion variable is that their base wage is different and their work hours are not optimised. Therefome, initially, the model optimises the current employees' work hours and then use the remaining demand to hire new employees._
 
