@@ -94,7 +94,8 @@ The model has fairly simple constraints as the supply and demand are equal and t
 
 ```math
 \begin{align*}
-
+```
+```math
 & \begin{equation*}
 x_{i,d}=
     \begin{cases}
@@ -103,31 +104,19 @@ x_{i,d}=
     \end{cases}
 \end{equation*}
 && ,\forall i\in Emp, \forall d\in D
-
-\\\\
-
+```
+```math
 & \begin{equation*}
 y_{g,d} = 0
 \end{equation*}
 && ,\forall g\in Job\_Groups, \forall d\in D_{weekends}
-
-\\\\
-
+```
+```math
 & \begin{equation*}
 y_{g,d} \geq 0
 \end{equation*}
 && ,\forall g\in Job\_Groups, \forall d\in D_{weekdays}
-
-\\\\
-
-% & \begin{equation*}
-% \end{equation*}
-% \sum_{i\in Emp} x_{i,d} + \sum_{i\in Emp} x \prime_{i,d} = p_{d,1} + p_{d,2}, &&,\forall d\in D
-
-% \\\\
-
-% & \begin{equation*}
-% \sum_{i\in Emp} x_{i,d} + \sum_{i\in Emp} x \prime_{i,d} = p_{d,1} + p_{d,2}, \forall d\in D
-% \end{equation*}
-
+```
+```math
 \end{align*}
+```
