@@ -91,21 +91,21 @@ $$
 
 ### Constraints
 The model has fairly simple constraints as the supply and demand are equal and the demand is fixed. The constraints are defined as follows:
-
+<!-- 
 ```math
 \begin{align*}
-```
+``` -->
 ```math
-& \begin{equation*}
+\begin{equation*}
 x_{i,d}=
     \begin{cases}
         480 & d \in D_{weekdays}\\
         0 & d \in D_{weekends}
     \end{cases}
 \end{equation*}
-&& ,\forall i\in Emp, \forall d\in D
+,\forall i\in Emp, \forall d\in D
 ```
-```math
+<!-- ```math
 & \begin{equation*}
 y_{g,d} = 0
 \end{equation*}
@@ -119,4 +119,4 @@ y_{g,d} \geq 0
 ```
 ```math
 \end{align*}
-```
+``` -->
