@@ -1,11 +1,11 @@
-# Employment Optimization Problem
+# Employment Optimisation Problem
 
 > *This is a project for the course of Operations Research (1218183) at Amirkabir University of Technology.*
 
 ## Future Work and Improvements
 I plan to improve the project in the following ways:
 - **Create more modular parts for the data manipulation part:** Use the same code with more diverse datasets.
-- **Modularize the optimization model:** Use the model for similar employment problems with a different context.
+- **Modularize the optimisation model:** Use the model for similar employment problems with a different context.
 - **Fully migrate the problem to English:** Allow the code to be universally used and understood.
 - **Add support for more types of food:** EX: Prepared food, bought food, etc.
 
@@ -53,4 +53,81 @@ The following conditions are given for the demands:
 - Each month has the same menu which is set at the beginnig of the year.
 - Both types of foods must be cooked. _(No food can be bought as of now)_
 
-Eventually, The goal is to minimize the personel costs of the company by optimizing the number of employees and their work hours.
+Eventually, The goal is to minimize the personel costs of the company by optimising the number of employees and their work hours.
+
+## Model
+
+### Parameters
+The following parameters are used in the model:
+- **The time period**: $D = \set{\text{2022-07-23},\dots, \text{2022-08-22} }$
+- **Employees**: $Emp = \set{\text{Employee numbers}}$
+
+### Variables and Data Structures
+To model the problem, the following variable structure is used:
+- $x_{i,d}$ is the basic work hour of employee $i$ on day $d$.
+- $x \prime_{i,d}$ is the overtime work hour of employee $i$ on day $d$.
+- $y_{g,d}$ is the required basic work hour of job group $g$ on day $d$.
+- $y \prime_{g,d}$ is the required overtime work hour of job group $g$ on day $d$.
+- $w_i$ is the base wage of employee $i$.
+- $w \prime_i$ is the overtime wage of employee $i$.
+- $w_g$ is the average base wage of job group $g$. (This is the new employee's base wage)
+- $w \prime_g$ is the average overtime wage of job group $g$. (This is the new employee's overtime wage)
+- $p_{d,j}$ is the number of demanded portions of food type $j$ on day $d$.
+
+**There are 3 job categories:**
+- **Food Related**: These job groups have direct relationship with cooked food.
+- **Distribution Related**: These job groups have direct relationship with the distribution of food. (Both cooked and bought)
+- **HR Related**: These job groups have direct relationship with the HR department. (Hiring, Managment, etc.)
+
+> _**Job groups**_ are employees' _**job titles**_. (Ex: `butcher`, `chef`, `waiter`, etc.) However, employees don't have impact on every part of the supply chain; meaning, their work hours are <ins>_not_</ins> affected by changes in the demand. Therefore, job groups are categorized based on their influence on the supply.  
+
+### Objective Function
+The objective function is defined as follows:
+$$
+\min z = \sum_{d\in D} \sum_{i\in Emp} (x_{i,d} \cdot w_i + x \prime_{i,d} \cdot w\prime_i)+ \sum_{d \in D} \sum_{g \in Job\space Groups} (y_{g,d}\cdot w_g + y\prime_{g,d}\cdot w\prime_g)\\
+$$
+
+> _The reason to have each individual current employee as a desicion variable is that their base wage is different and their work hours are not optimised. Therefome, initially, the model optimises the current employees' work hours and then use the remaining demand to hire new employees._
+
+### Constraints
+The model has fairly simple constraints as the supply and demand are equal and the demand is fixed. The constraints are defined as follows:
+$$
+\begin{align*}
+
+& \begin{equation*}
+x_{i,d}=
+    \begin{cases}
+        480 & d \in D_{weekdays}\\
+        0 & d \in D_{weekends}
+    \end{cases}
+\end{equation*}
+&& ,\forall i\in Emp, \forall d\in D
+
+\\\\
+
+& \begin{equation*}
+y_{g,d} = 0
+\end{equation*}
+&& ,\forall g\in Job\_Groups, \forall d\in D_{weekends}
+
+\\\\
+
+& \begin{equation*}
+y_{g,d} \geq 0
+\end{equation*}
+&& ,\forall g\in Job\_Groups, \forall d\in D_{weekdays}
+
+\\\\
+
+% & \begin{equation*}
+% \end{equation*}
+% \sum_{i\in Emp} x_{i,d} + \sum_{i\in Emp} x \prime_{i,d} = p_{d,1} + p_{d,2}, &&,\forall d\in D
+
+% \\\\
+
+% & \begin{equation*}
+% \sum_{i\in Emp} x_{i,d} + \sum_{i\in Emp} x \prime_{i,d} = p_{d,1} + p_{d,2}, \forall d\in D
+% \end{equation*}
+
+\end{align*}
+$$
