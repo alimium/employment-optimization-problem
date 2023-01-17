@@ -91,7 +91,8 @@ $$
 
 ### Constraints
 The model has fairly simple constraints as the supply and demand are equal and the demand is fixed. The constraints are defined as follows:
-$$
+
+```math
 \begin{align*}
 
 & \begin{equation*}
@@ -130,4 +131,3 @@ y_{g,d} \geq 0
 % \end{equation*}
 
 \end{align*}
-$$
