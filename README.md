@@ -91,10 +91,7 @@ $$
 
 ### Constraints
 The model has fairly simple constraints as the supply and demand are equal and the demand is fixed. The constraints are defined as follows:
-<!-- 
-```math
-\begin{align*}
-``` -->
+
 ```math
 \begin{equation*}
 x_{i,d}=
@@ -104,19 +101,17 @@ x_{i,d}=
     \end{cases}
 \end{equation*}
 ,\forall i\in Emp, \forall d\in D
-```
-<!-- ```math
-& \begin{equation*}
+``` 
+
+```math
+\begin{equation*}
 y_{g,d} = 0
 \end{equation*}
-&& ,\forall g\in Job\_Groups, \forall d\in D_{weekends}
+,\forall g\in Job\_Groups, \forall d\in D_{weekends}
 ```
 ```math
-& \begin{equation*}
+\begin{equation*}
 y_{g,d} \geq 0
 \end{equation*}
-&& ,\forall g\in Job\_Groups, \forall d\in D_{weekdays}
+,\forall g\in Job\_Groups, \forall d\in D_{weekdays}
 ```
-```math
-\end{align*}
-``` -->
