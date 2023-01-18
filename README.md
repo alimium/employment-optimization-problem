@@ -61,6 +61,7 @@ Eventually, The goal is to minimize the personel costs of the company by optimis
 The following parameters are used in the model:
 - **The time period**: $D = \set{\text{2022-07-23},\dots, \text{2022-08-22} }$
 - **Employees**: $Emp = \set{\text{Employee numbers}}$
+- **Job Groups**: $JG = \set{\text{All Unique Job Groups}}$
 
 ### Variables and Data Structures
 To model the problem, the following variable structure is used:
@@ -87,31 +88,64 @@ The objective function is defined as follows:
 \min z = \sum_{d\in D} \sum_{i\in Emp} (x_{i,d} \cdot w_i + x \prime_{i,d} \cdot w\prime_i)+ \sum_{d \in D} \sum_{g \in Job\space Groups} (y_{g,d}\cdot w_g + y\prime_{g,d}\cdot w\prime_g)\\
 ```
 
-> _The reason to have each individual current employee as a desicion variable is that their base wage is different and their work hours are not optimised. Therefome, initially, the model optimises the current employees' work hours and then use the remaining demand to hire new employees._
+> _The reason to have each individual current employee as a desicion variable is that their base wage is different and their work hours are not optimised. Therefore, initially, the model optimises the current employees' work hours and then uses the remaining demand to hire new employees._
 
 ### Constraints
 The model has fairly simple constraints as the supply and demand are equal and the demand is fixed. The constraints are defined as follows:
 
 ```math
-\begin{equation*}
+\begin{equation}
 x_{i,d}=
     \begin{cases}
         480 & d \in D_{weekdays}\\
         0 & d \in D_{weekends}
     \end{cases}
-\end{equation*}
+\end{equation}
 ,\forall i\in Emp, \forall d\in D
 ``` 
-
 ```math
-\begin{equation*}
+\begin{equation}
 y_{g,d} = 0
-\end{equation*}
-,\forall g\in Job\_Groups, \forall d\in D_{weekends}
+\end{equation}
+,\forall g\in JG, \forall d\in D_{weekends}
 ```
 ```math
-\begin{equation*}
+\begin{equation}
 y_{g,d} \geq 0
-\end{equation*}
-,\forall g\in Job\_Groups, \forall d\in D_{weekdays}
+\end{equation}
+,\forall g\in JG, \forall d\in D_{weekdays}
 ```
+```math
+\begin{equation}
+\sum_{i \in {Emp_{g}}} (x_{i,d} + x\prime_{i,d}) +
+y_{g,d}+y\prime_{g,d}
+\geq \delta_{g,d}
+,\forall d \in D,\ \forall g \in JG
+\end{equation}
+```
+
+
+#### Demands
+For each job category, a cost $\theta$ is calculated for each day:  
+```math
+\begin{equation}
+\theta_{g,d} = 
+    \begin{cases}
+        \sum_{i \in Emp_g}(x_{i,d}+x\prime_{i,d}) \over \sum_{j \in Cooked\ Food}p_{d,j}& g \in JG_{Food\space Related}\\\\
+
+        \sum_{i \in Emp_g}(x_{i,d}+x\prime_{i,d}) \over \sum_{j \in Cooked\ Food}p_{d,j} + \sum_{j \in Distributed\ Food}p_{d,j}& g \in JG_{Distribution\space Related}\\\\
+
+        \sum_{i \in Emp_g}(x_{i,d}+x\prime_{i,d}) \over \sum_{i \in Emp}(x_{i,d}+x\prime_{i,d})& g \in JG_{HR\space Related}
+    \end{cases}
+\end{equation}
+```
+
+The demands are given in the following table:  
+|Demand|Description|Formula|
+|:-----:|:----------|:------|
+|$\delta_{Food,d}$|Food related demand on day $d$|$(\sum_{j \in Cooked\ Food}p_{d,j}) \times \theta_{Food,d}$|
+|$\delta_{Distribution,d}$|Distribution related demand on day $d$|$(\sum_{j}p_{d,j}) \times \theta_{Distribution,d}$|
+|$\delta_{HR,d}$|HR related demand on day $d$|$(\sum_{i\in Emp} (x_{i,d}+ x \prime_{i,d})+ \sum_{g \in Job\space Groups} (y_{g,d} + y\prime_{g,d}))\times \theta_{HR,d}$ |
+
+
+> ❗️**Important**: bear in mind that the $\theta_{g,d}$ values are constants and can not be changed. The summations in $\theta_{g,d}$ shall not be mistaken with the summations in the constraints. It is wrong to cancel them in $\delta_{g,d}$ as the model is not allowed to modify the $\theta_{g,d}$ values.
