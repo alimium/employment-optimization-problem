@@ -1,11 +1,11 @@
-# Employment Optimisation Problem
+# Employment Optimization Problem
 
 > *This is a project for the course Linear Optimization (1218183) at Amirkabir University of Technology.*
 
 ## Future Work and Improvements
 I plan to improve the project in the following ways:
 - **Create more modular parts for the data manipulation part:** Use the same code with more diverse datasets.
-- **Modularize the optimisation model:** Use the model for similar employment problems with a different context.
+- **Modularize the Optimization model:** Use the model for similar employment problems with a different context.
 - **Fully migrate the problem to English:** Allow the code to be universally used and understood.
 - **Add support for more types of food:** EX: Prepared food, bought food, etc.
 
@@ -53,7 +53,7 @@ The following conditions are given for the demands:
 - Each month has the same menu which is set at the beginnig of the year.
 - Both types of foods must be cooked. _(No food can be bought as of now)_
 
-Eventually, The goal is to minimize the personel costs of the company by optimising the number of employees and their work hours.
+Eventually, The goal is to minimize the personel costs of the company by optimizing the number of employees and their work hours.
 
 ## Model
 
@@ -88,7 +88,7 @@ The objective function is defined as follows:
 \min z = \sum_{d\in D} \sum_{i\in Emp} (x_{i,d} \cdot w_i + x \prime_{i,d} \cdot w\prime_i)+ \sum_{d \in D} \sum_{g \in Job\space Groups} (y_{g,d}\cdot w_g + y\prime_{g,d}\cdot w\prime_g)\\
 ```
 
-> _The reason to have each individual current employee as a desicion variable is that their base wage is different and their work hours are not optimised. Therefore, initially, the model optimises the current employees' work hours and then uses the remaining demand to hire new employees._
+> _The reason to have each individual current employee as a desicion variable is that their base wage is different and their work hours are not optimized. Therefore, initially, the model optimizes the current employees' work hours and then uses the remaining demand to hire new employees._
 
 ### Constraints
 The model has fairly simple constraints as the supply and demand are equal and the demand is fixed. The constraints are defined as follows:
@@ -151,7 +151,7 @@ The demands are given in the following table:
 > ❗️**Important**: Bear in mind that the $\theta_{g,d}$ values are constants and can not be changed. The summations in $\theta_{g,d}$ shall not be mistaken with the summations in the constraints. It is wrong to cancel them in $\delta_{g,d}$ as the model is not allowed to modify the $\theta_{g,d}$ values.
 
 ### Results
-Below are the employees' work hours before optimisation:
+Below are the employees' work hours before optimization:
 
 ![Food Related](./figures/food_overtime_before.png)
 ![Distribution Related](./figures/dist_overtime_before.png)
