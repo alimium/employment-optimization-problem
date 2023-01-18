@@ -157,3 +157,15 @@ Below are the employees' work hours before optimization:
 ![Distribution Related](./figures/dist_overtime_before.png)
 ![HR Related](./figures/hr_overtime_before.png)
 
+#### after optimization, the work hours are as follows:
+##### Base Work Hour Needs:
+![Food Related](./figures/food_base_need.png)
+![Distribution Related](./figures/dist_base_need.png)
+![HR Related](./figures/hr_base_need.png)
+
+##### Overtime Work Hour Needs:
+![Food Related](./figures/food_overtime_after.png)
+![Distribution Related](./figures/dist_overtime_after.png)
+![HR Related](./figures/hr_overtime_after.png)
+
+
