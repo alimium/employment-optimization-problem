@@ -30,7 +30,7 @@ Current overtime work hours for each employee is given in a table like below:
 Where _`w_i_j`_ is the overtime work hours of employee _`j`_ on date _`i`_.
 
 Looking at the table, it seems that the overtime work hours are too high and it leads to extra costs for the company.  
-The directors and the HR department have agreed to recruit new employees to reduce the overtime work hours. However, the fillowing conditions must be met:
+The directors and the HR department have agreed to recruit new employees to reduce the overtime work hours. However, the following conditions must be met:
 
 - No current employee can be fired.
 - New employees will be considered to all the conditions for the current employees.
@@ -71,8 +71,8 @@ To model the problem, the following variable structure is used:
 - $y \prime_{g,d}$ is the required overtime work hour of job group $g$ on day $d$.
 - $w_i$ is the base wage of employee $i$.
 - $w \prime_i$ is the overtime wage of employee $i$.
-- $w_g$ is the average base wage of job group $g$. (This is the new employee's base wage)
-- $w \prime_g$ is the average overtime wage of job group $g$. (This is the new employee's overtime wage)
+- $w_g$ is the average base wage of job group $g$. (This is the new employees' base wage)
+- $w \prime_g$ is the average overtime wage of job group $g$. (This is the new employees' overtime wage)
 - $p_{d,j}$ is the number of demanded portions of food type $j$ on day $d$.
 
 **There are 3 job categories:**
@@ -88,10 +88,10 @@ The objective function is defined as follows:
 \min z = \sum_{d\in D} \sum_{i\in Emp} (x_{i,d} \cdot w_i + x \prime_{i,d} \cdot w\prime_i)+ \sum_{d \in D} \sum_{g \in Job\space Groups} (y_{g,d}\cdot w_g + y\prime_{g,d}\cdot w\prime_g)\\
 ```
 
-> _The reason to have each individual current employee as a desicion variable is that their base wage is different and their work hours are not optimized. Therefore, initially, the model optimizes the current employees' work hours and then uses the remaining demand to hire new employees._
+> _The reason to have each individual current employee as a desicion variable is that their base wage varies and their work hours are not optimized. Therefore, initially, the model optimizes the current employees' work hours and then uses the remaining demand to hire new employees._
 
 ### Constraints
-The model has fairly simple constraints as the supply and demand are equal and the demand is fixed. The constraints are defined as follows:
+The model has fairly simple constraints as the supply and demand need to be equal and the demand is fixed. The constraints are defined as follows:
 
 ```math
 \begin{equation}
@@ -125,6 +125,7 @@ y_{g,d}+y\prime_{g,d}
 ```
 
 
+
 #### Demands
 For each job category, a cost $\theta$ is calculated for each day:  
 ```math
@@ -139,6 +140,7 @@ For each job category, a cost $\theta$ is calculated for each day:
     \end{cases}
 \end{equation}
 ```
+> The costs show the total amount of time each job group has to work in order to accomplish one unit of the demand. For Example, $\theta_{chef,2022-07-23} = 15$ means that the `chef` job group has to work 15 minutes on `2022-07-23` to cook one portion of food.
 
 The demands are given in the following table:  
 |Demand|Description|Formula|
